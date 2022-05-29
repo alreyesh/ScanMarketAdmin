@@ -6,8 +6,14 @@
         <entry key="..\:/Users/alrey/AndroidStudioProjects/ScanMarketAdmin/app/src/main/res/drawable/splash.xml" value="0.1215" />
         <entry key="..\:/Users/alrey/AndroidStudioProjects/ScanMarketAdmin/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/alrey/AndroidStudioProjects/ScanMarketAdmin/app/src/main/res/layout/activity_main.xml" value="0.11041666666666666" />
+        <entry key="..\:/Users/alrey/AndroidStudioProjects/ScanMarketAdmin/app/src/main/res/layout/fragment_add_category.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/alrey/AndroidStudioProjects/ScanMarketAdmin/app/src/main/res/layout/fragment_add_product.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/alrey/AndroidStudioProjects/ScanMarketAdmin/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/alrey/AndroidStudioProjects/ScanMarketAdmin/app/src/main/res/layout/header_navigation_drawer.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/alrey/AndroidStudioProjects/ScanMarketAdmin/app/src/main/res/layout/list_category.xml" value="0.264" />
         <entry key="..\:/Users/alrey/AndroidStudioProjects/ScanMarketAdmin/app/src/main/res/layout/toolbar.xml" value="0.11041666666666666" />
         <entry key="..\:/Users/alrey/AndroidStudioProjects/ScanMarketAdmin/app/src/main/res/menu/menu.xml" value="0.11041666666666666" />
+        <entry key="..\:/Users/alrey/AndroidStudioProjects/ScanMarketAdmin/app/src/main/res/menu/menunav.xml" value="0.25" />
       </map>
     </option>
   </component>
