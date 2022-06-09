@@ -17,47 +17,53 @@
         android:text="Registrar Producto"
         android:layout_marginBottom="10dp"
         />
+
     <EditText
         android:id="@+id/editCodProduct"
-        android:hint="Codigo de Producto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        />
+        android:layout_marginBottom="20dp"
+        android:hint="Codigo de Producto"
+        android:minHeight="48dp" />
+
     <EditText
         android:id="@+id/editNameProduct"
-        android:hint="Nombre de Producto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:hint="Nombre de Producto"
 
 
-        />
+        android:minHeight="48dp" />
+
     <EditText
         android:id="@+id/editDescProduct"
-        android:hint="Descripcion de Producto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:hint="Descripcion de Producto"
 
 
-        />
+        android:minHeight="48dp" />
+
     <EditText
         android:id="@+id/editPriceProduct"
-        android:hint="Precio de Producto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        />
+        android:layout_marginBottom="20dp"
+        android:hint="Precio de Producto"
+        android:inputType="number|numberDecimal"
+        android:minHeight="48dp"
+        android:selectAllOnFocus="true" />
     <Spinner
         android:id="@+id/spinnerCategories"
         android:layout_width="match_parent"
