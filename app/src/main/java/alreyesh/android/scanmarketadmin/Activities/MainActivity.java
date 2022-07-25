@@ -24,6 +24,7 @@ import alreyesh.android.scanmarketadmin.Fragments.AddCategoryFragment;
 import alreyesh.android.scanmarketadmin.Fragments.AddProductFragment;
 import alreyesh.android.scanmarketadmin.Fragments.HomeFragment;
 import alreyesh.android.scanmarketadmin.Fragments.ListProductFragment;
+import alreyesh.android.scanmarketadmin.Fragments.UpdateNotificationFragment;
 import alreyesh.android.scanmarketadmin.R;
 import alreyesh.android.scanmarketadmin.Utils.Util;
 
@@ -83,7 +84,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.add_category:
                         fragment = new AddCategoryFragment();
                         fragmentTransaction = true;
-
+                        break;
+                    case R.id.update_noti:
+                        fragment = new UpdateNotificationFragment();
+                        fragmentTransaction = true;
+                        break;
 
 
                 }

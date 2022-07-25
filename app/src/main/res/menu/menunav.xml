@@ -5,7 +5,7 @@
         <item android:id="@+id/list_product" android:icon="@drawable/ic_list" android:title="Listar Productos" />
         <item android:id="@+id/add_product" android:icon="@drawable/ic_add" android:title="Insertar Producto" />
         <item android:id="@+id/add_category" android:icon="@drawable/ic_add" android:title="Insertar Categoria" />
-
+        <item android:id="@+id/update_noti" android:icon="@android:drawable/stat_notify_chat" android:title="Registrar Notificación" />
     </group>
     <item android:title="Mi Cuenta">
         <menu>
