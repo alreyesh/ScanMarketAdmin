@@ -26,7 +26,6 @@ import com.google.gson.Gson;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -89,7 +88,12 @@ public class CartFragment extends Fragment {
         txtDate.setText("Fecha: "+order.getDate());
         ArrayList<Product> productos = new ArrayList<>();
         productos.addAll(order.getProductos());
-        adapter = new ProductAdapter(productos);
+        adapter = new ProductAdapter(productos, new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product product, int position) {
+
+            }
+        });
         mRecycler.setAdapter(adapter);
 Toast.makeText(getContext(),"r:  "+productos.get(0).getCod() ,Toast.LENGTH_SHORT).show();
         btnPagado.setOnClickListener(new View.OnClickListener() {

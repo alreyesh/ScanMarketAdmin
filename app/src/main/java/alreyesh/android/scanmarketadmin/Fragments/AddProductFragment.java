@@ -56,10 +56,10 @@ import android.provider.MediaStore.Images.Media;
 
 public class AddProductFragment extends Fragment {
     private Spinner mSpinnerCategories;
-    private EditText editCodProduct,editNameProduct,editDescProduct,editPriceProduct;
+    private EditText editCodProduct,editNameProduct,editDescProduct,editPriceProduct,editDescuentoProduct;
     private Button btnRegisterProduct,img_select_button;
     private ImageView img_product;
-    private Uri filePath;
+    private Uri filePath = null;
     private FirebaseFirestore mfirestore;
     private StorageReference mStorageRef;
 
@@ -93,7 +93,7 @@ public class AddProductFragment extends Fragment {
             Uri path = data.getData();
             filePath = data.getData();
           //  img_product.setImageURI(path);
-
+            Toast.makeText(getContext(),"foto: "+filePath,Toast.LENGTH_SHORT).show();
             try {
                 Bitmap bitmapImagen = Media.getBitmap(getActivity().getContentResolver(),path);
                 img_product.setImageBitmap(bitmapImagen);
@@ -116,6 +116,7 @@ public class AddProductFragment extends Fragment {
         editNameProduct= (EditText)view.findViewById(R.id.editNameProduct);
         editDescProduct = (EditText)view.findViewById(R.id.editDescProduct);
         editPriceProduct = (EditText)view.findViewById(R.id.editPriceProduct);
+        editDescuentoProduct = (EditText)view.findViewById(R.id.editDescuento);
         btnRegisterProduct = (Button) view.findViewById(R.id.btnRegisterProduct);
         img_select_button = (Button)view.findViewById(R.id.img_select_button);
         img_product =(ImageView) view.findViewById(R.id.img_product);
@@ -165,66 +166,81 @@ public class AddProductFragment extends Fragment {
                 String textName = editNameProduct.getText().toString().trim();
                 String textDesc = editDescProduct.getText().toString().trim();
                 String  textPrice = editPriceProduct.getText().toString().trim();
-                    if(textCod ==""|| textCod==null||textName ==""||textName==null||textDesc==""||textDesc==null||textPrice==""||textPrice==null){
+                String textDescuento = editDescuentoProduct.getText().toString().trim();
+
+
+                    if(textCod ==""|| textCod==null||textName ==""||textName==null||textDesc==""||textDesc==null||textPrice==""||textPrice==null|| textDescuento=="" || textDescuento==null){
                         Toast.makeText(getContext(), "Rellenar todos los campos", Toast.LENGTH_SHORT).show();
 
                     }else{
-                        if (filePath != null) {
+                        Float precio = Float.parseFloat(textPrice);
+                        Float descuento = Float.parseFloat(textDescuento);
+                        if(precio > descuento){
+                            if (filePath != null) {
 
-                            StorageReference fotoRef = mStorageRef.child("FotosProducto").child(filePath.getLastPathSegment());
-                            fotoRef.putFile(filePath).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                                @Override
-                                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                                    if (!task.isSuccessful()) {
-                                        throw new Exception();
-                                    }
-                                    return fotoRef.getDownloadUrl();
-                                }
-                            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Uri> task) {
-                                    if (task.isSuccessful()) {
-                                        Map<String, Object> map = new HashMap<>();
-                                        Uri downloadLink = task.getResult();
-                                        map.put("codigo", textCod.toLowerCase());
-                                        map.put("nombre", textName.toLowerCase());
-                                        map.put("descripcion", textDesc);
-                                        map.put("precio", textPrice);
-                                        map.put("categoria", textSpinner);
-                                        map.put("imagen", downloadLink.toString());
-                                        mfirestore.collection("productos").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        StorageReference fotoRef = mStorageRef.child("FotosProducto").child(textCod+"_"+filePath.getLastPathSegment());
+                                        fotoRef.putFile(filePath).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                                             @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                editCodProduct.setText("");
-                                                editNameProduct.setText("");
-                                                editDescProduct.setText("");
-                                                editPriceProduct.setText("");
-                                                String uri = "@drawable/ic_camera";
-                                                int imageResource = getResources().getIdentifier(uri, null, getActivity().getPackageName());
-                                                Drawable res = getResources().getDrawable(imageResource);
-                                                img_product.setImageDrawable(res);
-                                                pd.dismiss();
-                                                Toast.makeText(getActivity(), "Creado Exitosamente", Toast.LENGTH_SHORT).show();
+                                            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                                                if (!task.isSuccessful()) {
+                                                    throw new Exception();
+                                                }
+                                                return fotoRef.getDownloadUrl();
+                                            }
+                                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                            @Override
+                                           public void onComplete(@NonNull Task<Uri> task) {
+                                                if (task.isSuccessful()) {
+                                                    Map<String, Object> map = new HashMap<>();
+                                                    Uri downloadLink = task.getResult();
+                                                    map.put("codigo", textCod.toLowerCase());
+                                                    map.put("nombre", textName.toLowerCase());
+                                                    map.put("descripcion", textDesc);
+                                                    map.put("precio", textPrice);
+                                                    map.put("categoria", textSpinner);
+                                                    map.put("descuento",textDescuento);
+                                                    map.put("imagen", downloadLink.toString());
+                                                    mfirestore.collection("productos").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                        @Override
+                                                        public void onSuccess(DocumentReference documentReference) {
+                                                            editCodProduct.setText("");
+                                                            editNameProduct.setText("");
+                                                            editDescProduct.setText("");
+                                                            editPriceProduct.setText("");
+                                                            editDescuentoProduct.setText("");
+                                                            String uri = "@drawable/ic_camera";
+                                                            int imageResource = getResources().getIdentifier(uri, null, getActivity().getPackageName());
+                                                            Drawable res = getResources().getDrawable(imageResource);
+                                                            img_product.setImageDrawable(res);
+                                                            pd.dismiss();
+                                                            Toast.makeText(getActivity(), "Creado Exitosamente", Toast.LENGTH_SHORT).show();
 
+                                                        }
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            pd.dismiss();
+                                                            Toast.makeText(getActivity(), "Error al Ingresar", Toast.LENGTH_SHORT).show();
+
+                                                        }
+                                                    });
+
+
+                                                }
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
                                                 pd.dismiss();
-                                                Toast.makeText(getActivity(), "Error al Ingresar", Toast.LENGTH_SHORT).show();
-
                                             }
                                         });
+                            }
+                            else{
+                                        Toast.makeText(getContext(), "Seleccionar una Foto para el Producto", Toast.LENGTH_SHORT).show();
 
-
-                                    }
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    pd.dismiss();
-                                }
-                            });
+                            }
+                        }else{
+                            Toast.makeText(getContext(), "El precio del producto tiene que ser mayor al precio de descuento", Toast.LENGTH_SHORT).show();
                         }
                     }
 

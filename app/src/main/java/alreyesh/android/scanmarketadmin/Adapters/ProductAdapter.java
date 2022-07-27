@@ -4,17 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import alreyesh.android.scanmarketadmin.Model.Product;
@@ -24,9 +21,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     private Context context;
 
     private  List<Product> products;
-
-    public ProductAdapter(List<Product> products) {
+    private  OnItemClickListener itemListener;
+    public ProductAdapter(List<Product> products, OnItemClickListener itemListener) {
         this.products = products;
+        this.itemListener = itemListener;
     }
 
     @NonNull
@@ -42,7 +40,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull   ViewHolder holder, int position) {
-        holder.bind(products.get(position));
+        holder.bind(products.get(position),itemListener);
     }
 
     @Override
@@ -59,18 +57,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
              imgProductView =  itemView.findViewById(R.id.imgProductView);
-              textCodigo = itemView.findViewById(R.id.textCodigo);
+            textCodigo = itemView.findViewById(R.id.textCodigo);
               textViewName = itemView.findViewById(R.id.textViewName);
             textViewCant = itemView.findViewById(R.id.textViewCant);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
 
         }
-        public void bind(final Product products){
+        public void bind(final Product products,final  OnItemClickListener itemListener){
             Picasso.get().load(products.getLink()).fit().into(imgProductView);
             textViewName.setText(products.getName());
             textViewPrice.setText("S/. "+products.getSubtotal());
-            textCodigo.setText("und: "+products.getCod());
-            textViewCant.setText(products.getCantidad());
+            textCodigo.setText("sku: "+products.getCod());
+            textViewCant.setText("und: "+products.getCantidad());
         }
     }
+    public interface OnItemClickListener {
+        void onItemClick(Product product, int position);
+    }
+
 }

@@ -3,15 +3,19 @@ public class Product {
     private String cod;
     private String link;
     private String name;
-    private String cantidad;
+    private String descripcion;
     private String subtotal;
 
-    public Product(String cod, String link, String name, String cantidad, String subtotal) {
-        this.cod = cod;
-        this.link = link;
-        this.name = name;
+    private String cantidad;
+
+    public Product(String codigo, String imagen, String nombre, String descripcion, String precio,String cantidad) {
+        this.cod = codigo;
+        this.link = imagen;
+        this.name = nombre;
+        this.descripcion = descripcion;
+        this.subtotal = precio;
+
         this.cantidad = cantidad;
-        this.subtotal = subtotal;
     }
 
     public String getCod() {
@@ -38,12 +42,12 @@ public class Product {
         this.name = name;
     }
 
-    public String getCantidad() {
-        return cantidad;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setCantidad(String cantidad) {
-        this.cantidad = cantidad;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getSubtotal() {
@@ -52,5 +56,14 @@ public class Product {
 
     public void setSubtotal(String subtotal) {
         this.subtotal = subtotal;
+    }
+
+
+    public String getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(String cantidad) {
+        this.cantidad = cantidad;
     }
 }
